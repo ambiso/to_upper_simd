@@ -45,9 +45,13 @@ end
 test()
 
 function bench() 
-    display(@benchmark to_upper(s) setup=(s=randstring(100000)))
-    display(@benchmark to_upper_branchless(s) setup=(s=randstring(100000)))
-    display(@benchmark to_upper_avx(s) setup=(s=randstring(100000)))
+    n = 100000
+    println("Branchful version:")
+    display(@benchmark to_upper(s) setup=(s=randstring(n)))
+    println("Branchless version:")
+    display(@benchmark to_upper_branchless(s) setup=(s=randstring(n)))
+    println("Branchless version with @avx:")
+    display(@benchmark to_upper_avx(s) setup=(s=randstring(n)))
 end
 
 bench()
